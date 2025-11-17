@@ -1,0 +1,71 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+
+
+
+  <div class="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-2xl shadow-lg">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h1 class="text-2xl font-bold">Result Sheet</h1>
+        
+      </div>
+      <div class="text-right">
+        <p class="text-sm">Viewed as: <strong><%= role %></strong></p>
+        <% if (role === 'student') { %>
+          <a href="/student/home" class="text-sm text-blue-600">Student Home</a>
+        <% } else { %>
+          <a href="/host/home" class="text-sm text-blue-600">Host Home</a>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Result metadata -->
+    <div class="mb-6">
+      <p><strong>Semester:</strong> <%= result.sem || '-' %> &nbsp; | &nbsp; <strong>Exam:</strong> <%= result.exam || '-' %></p>
+      <p class="text-sm text-gray-500">Published: <%= result.createdAt ? new Date(result.createdAt).toLocaleString() : '-' %></p>
+    </div>
+
+    <!-- Subjects table -->
+		<div class="overflow-x-auto">
+			<table class="min-w-[640px] w-full border-collapse text-sm sm:text-base">
+				<thead>
+					<tr class="bg-blue-600 text-white">
+						<th class="py-2 px-4 text-left">Subject</th>
+						<th class="py-2 px-4 text-left">Code</th>
+						<th class="py-2 px-4 text-center">Max</th>
+						<th class="py-2 px-4 text-center">Obtained</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% const subjects = Array.isArray(result.subjects) ? result.subjects : []; %>
+					<% if (subjects.length === 0) { %>
+						<tr><td colspan="5" class="py-6 text-center text-gray-600">No subject data</td></tr>
+					<% } else { %>
+						<% subjects.forEach(s => { %>
+							<tr class="border-b">
+								<td class="py-3 px-4"><%= s.name || s.subjectName || '-' %></td>
+								<td class="py-3 px-4"><%= s.code || s.subjectCode || '-' %></td>
+								<td class="py-3 px-4 text-center"><%= Number(s.maxMarks || s.max) || '-' %></td>
+								<td class="py-3 px-4 text-center"><%= Number(s.obtainedMarks || s.marksObtained) || '-' %></td>
+							</tr>
+						<% }) %>
+					<% } %>
+				</tbody>
+			</table>
+		</div>
+
+    <!-- footer totals -->
+    <div class="mt-6 text-right">
+      <p><strong>Total:</strong> <%= result.total || '-' %> &nbsp; | &nbsp; <strong>Percentage:</strong> <%= result.percentage || '-' %>%</p>
+      <strong>Grade:</strong> <%= result.grade || '-' %></p>
+    </div>
+
+    <!-- Action buttons: View always shown; host-only Update/Delete -->
+    <div class="mt-6 flex gap-3 justify-end">
+        
+      <button onclick="window.print()" class="px-4 py-2 bg-green-600 text-white rounded-lg">Print</button>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<%- include('../partials/head') %>
+
+    <%- include('../partials/nav') %>
+  
+    <% if(success.length>0){ %>
+    <div class="flashMessage z-50 fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-400 text-green-700 px-6 py-3 rounded-lg shadow-lg max-w-md w-full flex justify-center items-center mb-20">
+        <span class="font-medium text-center">
+            <%= success %>
+        </span>
+    </div>
+<% } %>
+
+	<div class="relative flex flex-col items-center justify-center min-h-[80vh] px-4">
+		<h1 class="text-2xl sm:text-3xl font-bold text-blue-700 bg-white bg-opacity-20 backdrop-blur-lg rounded-xl shadow-lg px-6 sm:px-8 py-5 sm:py-6 text-center">
+			Welcome, <%=student.name%>;
+		</h1>
+    </div>
+<script src="/scripts/message.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<%- include('../../partials/head') %>
+<%- include('../../partials/nav') %>
+
+<% if(success.length>0){ %>
+    <div class="flashMessage z-50 fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-400 text-green-700 px-6 py-3 rounded-lg shadow-lg max-w-md w-full flex justify-center items-center mb-20">
+        <span class="font-medium text-center">
+            <%= success %>
+        </span>
+    </div>
+<% } %>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white bg-opacity-20 backdrop-blur-lg rounded-xl shadow-lg p-8">
+            <!-- Header Section -->
+            <div class="mb-8 text-center">
+                <h1 class="text-2xl font-bold text-blue-700">Result Portal</h1>
+                <p class="text-gray-600">Student: <%= student.name %> (Roll No: <%= student.rollno %>)</p>
+            </div>
+
+            <% if (!results || results.length === 0) { %>
+                <div class="text-center py-8">
+                    <p class="text-gray-600">No results available.</p>
+                </div>
+            <% } else { %>
+                <!-- Results Table -->
+				<div class="overflow-x-auto">
+					<table class="min-w-[720px] w-full border-collapse bg-white bg-opacity-50 rounded-lg overflow-hidden text-sm sm:text-base">
+                        <thead>
+                            <tr class="bg-blue-600 text-white">
+                                <th class="px-6 py-3 text-left">Name</th>
+                                <th class="px-6 py-3 text-left">Rollno.</th>
+                                <th class="px-6 py-3 text-center">Semester</th>
+                                <th class="px-6 py-3 text-center">Exam Type</th>
+                                <th class="px-6 py-3 text-center">Date</th>
+                                <th class="px-6 py-3 text-center">View</th>
+                                <th class="px-6 py-3 text-center">Delete</th>
+                                <th class="px-6 py-3 text-center">Update</th>
+                                
+                            </tr>
+                        </thead>
+                        <% results.forEach(result => { %>
+                        <tbody class="divide-y divide-gray-200">
+                          <tr class="hover:bg-blue-50 transition-colors">
+                            
+                              <td class="px-6 py-4 text-center"><%= student.name %></td>
+                              <td class="px-6 py-4 text-center"><%= student.rollno %></td>
+                                    <td class="px-6 py-4 text-center"><%= result.sem %></td>
+                                    <td class="px-6 py-4 text-center "><%= result.exam%></td>
+                                    <td class="px-6 py-4 text-center text-sm text-gray-500">
+                                        <%= new Date(result.createdAt).toLocaleDateString() %>
+                                    </td>
+                                    <td class="px-6 py-4 text-center text-sm text-gray-500">
+     <a href="/host/result/<%= result._id %>" class="bg-yellow-600 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-yellow-700 transition mt-6"> View</a>
+                                    </td>
+                                    <td>
+     <form action="/host/allResult/delete/<%= result._id %>/<%=student._id%>" method="POST">
+        <button type="submit" class="bg-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-red-700 transition ">
+            Delete 
+        </button>
+    </form>   
+                                    </td>
+                                    <td class="px-6 py-4 text-center text-sm text-gray-500">
+     <a href='/host/results/edit/<%=student._id%>/<%= result._id %>' class="bg-cyan-600 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-cyan-700 transition mt-6"> Update</a>
+                                    </td>                                    
+</tr>
+        <% }); %>
+    </tbody>
+</table>
+        </div>
+    <% } %>
+</div>
+</div>
+
+   
+
+    <script src="/scripts/subjects.js"></script>
+    <script src="/scripts/message.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+
+<div class="flex flex-col items-center justify-center min-h-[80vh] mt-auto">
+  <h1 class="text-3xl font-bold text-center mb-2 text-blue-700">WELCOME , <%= host.hostName.toUpperCase() %></h1>
+  <p class="text-sm text-gray-600 mb-6">Department: <strong><%= host.department || 'Not specified' %></strong></p>
+
+  <% if (students && students.length > 0) { %>
+		<div class="w-full max-w-5xl overflow-x-auto">
+			<table class="min-w-[720px] w-full border-collapse bg-white shadow rounded-xl overflow-hidden">
+				<thead class="bg-blue-100">
+					<tr class="text-xs sm:text-sm">
+						<th class="p-3 text-center">S.no</th>
+						<th class="p-3 text-center">Name</th>
+						<th class="p-3 text-center">Roll No</th>
+						<th class="p-3 text-center">Branch</th>
+						<th class="p-3 text-center">Session</th>
+						<th class="p-3 text-center">Campus</th>
+						<th class="p-3 text-center">Create Result</th>
+						<th class="p-3 text-center">View Result</th>
+					</tr>
+				</thead>
+
+				<tbody> 
+					<% 
+						let count = 0;
+						const hostDept = (host && host.department) ? String(host.department).trim().toLowerCase() : '';
+						students.forEach(stu => {
+							const stuBranch = (stu && stu.branch) ? String(stu.branch).trim().toLowerCase() : '';
+							if (hostDept && stuBranch === hostDept) { 
+								count++;
+					%>
+								<tr class="border-b hover:bg-gray-50 text-sm">
+									<td class="p-3 text-center"><%= count %></td>
+									<td class="p-3 font-medium text-gray-800 text-center"><%= stu.name || '-' %></td>
+									<td class="p-3 text-center"><%= stu.rollno || '-' %></td>
+									<td class="p-3 text-center"><%= stu.branch || '-' %></td>
+									<td class="p-3 text-center"><%= stu.session || '-' %></td>
+									<td class="p-3 text-center"><%= stu.campus || '-' %></td>
+
+									<td class="p-3 text-center">
+										<a href="/host/results/add/<%= stu._id %>" class="bg-green-600 text-white font-semibold px-3 py-2 rounded-lg shadow hover:bg-green-700 transition inline-block">
+											Create
+										</a>
+									</td>
+
+									<td class="p-3 text-center">
+										<a href="/host/results/allResult/<%= stu._id %>" class="bg-yellow-600 text-white font-semibold px-3 py-2 rounded-lg shadow hover:bg-yellow-700 transition inline-block">
+											View All
+										</a>
+									</td>
+								</tr>
+					<% 
+								} 
+							}); 
+
+							// If none matched host department, show friendly message row
+							if (count === 0) { 
+					%>
+								<tr>
+									<td colspan="8" class="text-center text-gray-600 py-6">
+										No students found in your department (<%= host.department || 'Not specified' %>).
+									</td>
+								</tr>
+					<% } %>
+				</tbody>
+			</table>
+		</div>
+
+  <% } else { %>
+    <p class="text-center text-gray-600 mt-10">No students available in the system.</p>
+  <% } %>
+</div>
+
+
