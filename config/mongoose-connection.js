@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const data_path = "mongodb+srv://root:root@project.rb5yi4k.mongodb.net/SRMS?retryWrites=true&w=majority&appName=Project"
+const data_path = process.env.MONGO_URI
 
 mongoose.connect(data_path).then(function(){
     console.log('connected');
