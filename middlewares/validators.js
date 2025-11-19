@@ -55,7 +55,7 @@ exports.studentSignupValidation = [
   body("rollno")
     .trim()
     .notEmpty().withMessage("Roll number is required")
-    .isLength({ min: 6, max: 20 }).withMessage("Roll number must be contain 12 Characters")
+    .isLength({ min: 12, max: 20 }).withMessage("Roll number must be contain 12 Characters")
     .matches(/^[0-9]+$/).withMessage("Roll number should only contain Numeric characters"),
 
   body("password")
