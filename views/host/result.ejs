@@ -20,8 +20,8 @@
     <!-- Result metadata -->
     <div class="mb-6">
       <p><strong>Semester:</strong> <%= result.sem || '-' %> &nbsp; | &nbsp; <strong>Exam:</strong> <%= result.exam || '-' %></p>
+      <p><strong>Student:</strong> <%= student.name || '-' %> &nbsp;</p>
       <p class="text-sm text-gray-500">Published: <%= result.createdAt ? new Date(result.createdAt).toLocaleString() : '-' %></p>
-      <p class="text-sm text-gray-500">Student : <%=student.name%> </p>
     </div>
 
     <!-- Subjects table -->

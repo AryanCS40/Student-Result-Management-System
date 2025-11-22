@@ -108,7 +108,10 @@ exports.student_result = async (req,res)=>{
  const result = await Result.findById(result_id).lean();
 const hostId = req.user._id;
 const host = await Host.findById(hostId).lean(); 
-res.render("host/result", {pageTitle : 'Document', role : 'host', result, host});
+const student_id = req.params.studentId;
+const student = await Student.findById(student_id).lean();
+
+res.render("host/result", {pageTitle : 'Document', role : 'host', result, host, student});
 }
 
 exports.editResult = async (req,res)=>{

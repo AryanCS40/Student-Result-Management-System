@@ -50,10 +50,10 @@
                                         <%= new Date(result.createdAt).toLocaleDateString() %>
                                     </td>
                                     <td class="px-6 py-4 text-center text-sm text-gray-500">
-     <a href="/host/result/<%= result._id %>" class="bg-yellow-600 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-yellow-700 transition mt-6"> View</a>
+     <a href="/host/result/<%= student._id %>/<%=result._id%>" class="bg-yellow-600 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-yellow-700 transition mt-6"> View</a>
                                     </td>
                                     <td>
-     <form action="/host/allResult/delete/<%= result._id %>/<%=student._id%>" method="POST">
+     <form action="/host/allResult/delete/<%= result._id %>" method="POST">
         <button type="submit" class="bg-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-red-700 transition ">
             Delete 
         </button>
